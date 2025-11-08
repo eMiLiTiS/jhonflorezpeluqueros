@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+        content="Peluquería moderna en Valencia especializada en cortes, coloración, tratamientos y maquillaje profesional. Reserva tu cita con Jhon Florez.">
+    <meta name="keywords"
+        content="peluquería Valencia, corte de cabello y mujeres, coloración, tratamientos capilares, Jhon Florez">
+
+    <title>Jhon Florez Peluqueros</title>
+
+    <!-- Fuentes Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Estilos externos -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="hero">
+        <div class="topbar">
+            <div class="logo">
+                <img src="logo-jf3.png" alt="Logo Jhon Florez Peluqueros">
+            </div>
+
+            <button id="btnMenu" class="hamburger" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <h1>Jhon Florez Peluqueros</h1>
+        <p>Tu estilo, nuestra pasión. Reserva tu cita fácilmente con nosotros.</p>
+        <a class="cta" href="https://wa.me/34641093550?text=Hola%20quiero%20una%20cita">Contactar por WhatsApp</a>
+    </header>
+
+    <!-- OVERLAY MENU -->
+    <aside id="menu" class="overlay" aria-hidden="true">
+        <div class="overlay-bg" id="cerrarMenu"></div>
+        <nav class="overlay-panel">
+            <button id="btnCerrar" class="hamburger active" aria-label="Cerrar menú">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-list">
+                <li><a href="#" onclick="closeMenu()">Inicio</a></li>
+                <li><a href="#servicios" onclick="closeMenu()">Servicios</a></li>
+                <li><a href="#contacto" onclick="closeMenu()">Contacto</a></li>
+                <li>
+                    <a href="https://wa.me/34641093550?text=Hola%20quiero%20una%20cita" target="_blank"
+                        rel="noopener noreferrer">WhatsApp</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios" aria-labelledby="tit-servicios">
+        <h2 id="tit-servicios" style="margin:0 0 12px; font-size:clamp(1.4rem,3.2vw,2rem)">Servicios destacados</h2>
+
+        <div class="cards">
+            <article class="card">
+                <h3>Corte + Peinado</h3>
+                <p>Asesoría de estilo incluida.</p>
+                <div class="price">€22</div>
+            </article>
+
+            <article class="card">
+                <h3>Coloración</h3>
+                <p>Técnicas modernas y tratamiento.</p>
+                <div class="price">Desde €45</div>
+            </article>
+
+            <article class="card">
+                <h3>Barbería</h3>
+                <p>Afeitados y perfilados precisos.</p>
+                <div class="price">€15</div>
+            </article>
+
+            <article class="card">
+                <h3>Tratamientos</h3>
+                <p>Hidratación, brillo y reparación.</p>
+                <div class="price">€18</div>
+            </article>
+
+            <article class="card">
+                <h3>Maquillaje</h3>
+                <p>Maquillaje profesional y personalizado.</p>
+                <div class="price">Desde €30</div>
+            </article>
+
+            <article class="card">
+                <h3>Estilismo</h3>
+                <p>Estilismo profesional y personalizado.</p>
+                <div class="price">Desde €30</div>
+            </article>
+        </div>
+    </section>
+
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+        <div>
+            <div class="contact-title">Contacto</div>
+
+            <div class="contact-card">
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor"
+                            d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 2v.01L12 11 4 6v-.01h16ZM4 18V8l8 5 8-5v10H4Z" />
+                    </svg>
+                    <a href="mailto:jhonarnulfa1402@gmail.com">jhonarnulfa1402@gmail.com</a>
+                </div>
+
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor"
+                            d="M6.6 10.8c1.2 2.4 3.2 4.3 5.6 5.6l1.9-1.9c.3-.3.8-.4 1.2-.3 1 .3 2 .5 3.1.5.6 0 1 .4 1 .9V20c0 .6-.4 1-1 1C9.8 21 3 14.2 3 6.5 3 5.9 3.4 5.5 4 5.5h3.5c.5 0 .9.4.9 1 0 1 .2 2 .5 3.1.1.4 0 .9-.3 1.2l-2 1.9Z" />
+                    </svg>
+                    <a href="tel:+34641093550">+34 641 093 550</a>
+                </div>
+
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor"
+                            d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" />
+                    </svg>
+                    <a href="https://www.google.com/maps?q=Calle+de+la+Pobla+del+Duc,+11,+La+Saïdia,+46009+València,+España"
+                        target="_blank" rel="noopener noreferrer">
+                        C/ de la Pobla del Duc, 11, La Saïdia, 46009 València
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer aria-label="Pie de página con enlaces legales y redes sociales">
+        <div class="footer-grid">
+            <!-- Columna 1 -->
+            <div>
+                <div class="footer-title">Jhon Florez Peluqueros</div>
+                <p class="footer-desc">Estilo contemporáneo, experiencia cercana y resultados impecables.</p>
+                <div class="socials" aria-label="Redes sociales">
+                    <a href="#" aria-label="Instagram" title="Instagram" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3Zm-5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 .001 6.001A3 3 0 0 0 12 9Zm5.5-.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook" title="Facebook" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M13 10V8c0-.6.4-1 1-1h2V4h-2a4 4 0 0 0-4 4v2H8v3h2v7h3v-7h3l1-3h-4Z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="TikTok" title="TikTok" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M14 3h3.2A6.8 6.8 0 0 0 14 0v3Zm3.8 5.2A9 9 0 0 1 14 6v6.9a3.9 3.9 0 1 1-3.9-3.9c.2 0 .4 0 .6.1V6.1A7.9 7.9 0 0 0 10 6a7.9 7.9 0 1 0 7.9 7.9V9.8c.9.7 2 1.2 3.1 1.3V7.9a5.7 5.7 0 0 1-3.2-1.7Z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="YouTube" title="YouTube" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.3 3.5 12 3.5 12 3.5s-7.3 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c2.1.6 9.4.6 9.4.6s7.3 0 9.4-.6a3 3 0 0 0 2.1-2.1c.4-1.9.5-3.9.5-5.8 0-1.9-.1-3.9-.5-5.8ZM9.8 15.5v-7L16 12l-6.2 3.5Z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="X" title="X (Twitter)" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M3 3h4.7L13 10.3 19.3 3H22l-7.2 8.4L22 21h-4.7l-5.8-7.2L5.7 21H3l7.9-9.2L3 3Z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Columna 2 -->
+            <div>
+                <div class="footer-title">Legal</div>
+                <ul class="legal-list" role="list">
+                    <li><a href="#" data-modal="aviso">Aviso legal</a></li>
+                    <li><a href="#" data-modal="privacidad">Política de privacidad</a></li>
+                    <li><a href="#" data-modal="cookies">Política de cookies</a></li>
+                    <li><a href="#" data-modal="reservas">Condiciones de reserva</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3 -->
+            <div>
+                <div class="footer-title">Reservas</div>
+                <p class="footer-desc">Elige fecha y hora, te confirmamos por WhatsApp.</p>
+                <button class="cta"
+                    onclick="window.open('https://calendar.app.google/7pLPMqZsq3hQdRTUA', '_blank', 'noopener')">
+                    Abrir calendario
+                </button>
+
+                <br>
+                <button class="cta"
+                    onclick="window.open('https://wa.me/34641093550?text=Hola%20quiero%20reservar%20una%20cita', '_blank')">
+                    Reservar por WhatsApp
+                </button>
+
+            </div>
+
+            <!-- Columna 4 -->
+            <div>
+                <div class="footer-title">Contacto</div>
+                <ul class="legal-list">
+                    <li>
+                        <a href="mailto:jhonarnulfa1402@gmail.com">jhonarnulfa1402@gmail.com</a>
+                    </li>
+                    <li>
+                        <a href="tel:+34641093550">+34 641 093 550</a>
+                    </li>
+                    <li>
+                        <a href="https://www.google.com/maps?q=Calle+de+la+Pobla+del+Duc,+11,+La+Saïdia,+46009+València,+España"
+                            target="_blank" rel="noopener noreferrer">
+                            📍 Cómo llegar
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="copy">
+            <span>© <span id="year"></span> Jhon Florez Peluqueros</span>
+            <span>Hecho con ♥ en Valencia</span>
+        </div>
+    </footer>
+
+
+    <!-- BOTÓN WHATSAPP -->
+    <a class="wa" href="https://wa.me/34641093550?text=Hola%20quiero%20una%20cita" target="_blank"
+        aria-label="Abrir WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M12 .5A11.5 11.5 0 0 0 1.1 16.8L0 24l7.4-1.9A11.5 11.5 0 1 0 12 .5Zm6.6 17.8c-.3.8-1.7 1.5-2.3 1.6-.6.1-1.4.2-2.4-.2-2.2-.9-3.6-1.9-5-3.5-1.6-1.8-2.1-3.3-2.3-3.9-.2-.6-.1-1.4.3-2 .3-.4.7-.9 1.2-.9h.9c.3 0 .7.5.8.9l.6 1.5c.1.3.1.6 0 .8-.1.3-.5.6-.8.9-.1.1-.2.3-.1.5.2.6.8 1.4 1.6 2.1 1 .9 1.9 1.2 2.5 1.4.2.1.4 0 .6-.2l1.1-1.3c.2-.2.4-.3.7-.2l1.7.6c.3.1.7.3.8.5.1.4 0 1-.1 1.4Z" />
+        </svg>
+    </a>
+
+    <script>
+        // Año automático
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Funciones de menú
+        const btnMenu = document.getElementById("btnMenu");
+        const btnCerrar = document.getElementById("btnCerrar");
+        const overlay = document.getElementById("menu");
+        const overlayBg = document.getElementById("cerrarMenu");
+
+        function openMenu() {
+            overlay.classList.add("active");
+            btnMenu.setAttribute("aria-expanded", "true");
+        }
+        function closeMenu() {
+            overlay.classList.remove("active");
+            btnMenu.setAttribute("aria-expanded", "false");
+        }
+
+        btnMenu.addEventListener("click", openMenu);
+        btnCerrar.addEventListener("click", closeMenu);
+        overlayBg.addEventListener("click", closeMenu);
+
+        // Abrir modales (se queda como lo tienes)
+        document.querySelectorAll('a[data-modal]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const id = 'modal-' + a.dataset.modal;
+                const m = document.getElementById(id);
+                if (m) {
+                    m.classList.add('active');
+                    m.setAttribute('aria-hidden', 'false');
+                }
+            });
+        });
+
+        // Cerrar modales con click en fondo o en cualquier [data-close]
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.modal .bg, [data-close]')) {
+                const m = e.target.closest('.modal');
+                if (m) {
+                    m.classList.remove('active');
+                    m.setAttribute('aria-hidden', 'true');
+                }
+            }
+        });
+
+        // Cerrar modales con ESC
+        window.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(m => {
+                    m.classList.remove('active');
+                    m.setAttribute('aria-hidden', 'true');
+                });
+            }
+        });
+
+        // Envío del formulario de reserva por WhatsApp
+        document.getElementById('formReserva').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombreReserva').value.trim();
+            const servicio = document.getElementById('servicioReserva').value;
+            const fecha = document.getElementById('fechaReserva').value;
+
+            const mensaje = `Hola, soy ${nombre}. Quiero reservar una cita para ${servicio} el día ${fecha}.`;
+            const url = `https://wa.me/34641093550?text=${encodeURIComponent(mensaje)}`;
+
+            window.open(url, '_blank');
+
+            // cerrar modal
+            const modal = document.getElementById('modal-reserva');
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            e.target.reset();
+        });
+
+        // === ABRIR MODAL DE RESERVA DESDE BOTÓN ===
+        const btnAbrirReserva = document.getElementById('abrirReserva3');
+        const modalReserva = document.getElementById('modal-reserva');
+
+        if (btnAbrirReserva && modalReserva) {
+            btnAbrirReserva.addEventListener('click', () => {
+                modalReserva.classList.add('active');
+                modalReserva.setAttribute('aria-hidden', 'false');
+            });
+        }
+
+
+
+    </script>
+
+    <!-- Modales legales -->
+    <section class="modal" id="modal-aviso" aria-hidden="true">
+        <div class="bg" data-close="modal-aviso"></div>
+        <div class="box">
+            <h3>Aviso legal</h3>
+            <p>Este sitio web es titularidad de <strong>Jhon Florez Peluqueros</strong>.
+                Domicilio: Valencia, España. Contacto: <a
+                    href="mailto:jhonarnulfa1402@gmail.com">jhonarnulfa1402@gmail.com</a>.
+                El acceso y uso del sitio implica la aceptación de las presentes condiciones.</p>
+        </div>
+    </section>
+
+    <section class="modal" id="modal-privacidad" aria-hidden="true">
+        <div class="bg" data-close="modal-privacidad"></div>
+        <div class="box">
+            <h3>Política de privacidad</h3>
+            <p>Responsable: Jhon Florez Peluqueros. Finalidad: gestión de citas y atención de consultas.
+                Derechos: acceso, rectificación y supresión en el correo anterior. No cedemos datos a terceros.</p>
+        </div>
+    </section>
+
+    <section class="modal" id="modal-cookies" aria-hidden="true">
+        <div class="bg" data-close="modal-cookies"></div>
+        <div class="box">
+            <h3>Política de cookies</h3>
+            <p>Utilizamos cookies técnicas necesarias y analíticas opcionales para mejorar la experiencia del usuario.
+            </p>
+        </div>
+    </section>
+
+    <section class="modal" id="modal-reservas" aria-hidden="true">
+        <div class="bg" data-close="modal-reservas"></div>
+        <div class="box">
+            <h3>Condiciones de reserva</h3>
+            <p>Las citas solicitadas quedan sujetas a confirmación. Cancelaciones con 3 horas de antelación mínimo.</p>
+        </div>
+    </section>
+
+    <!-- ...otros modales legales... -->
+
+    <!-- Modal de reserva -->
+    <section class="modal" id="modal-reserva" aria-hidden="true">
+        <div class="bg" data-close="modal-reserva"></div>
+        <div class="box">
+            <h3>Reserva tu cita</h3>
+            <form id="formReserva">
+                <label>Nombre:</label>
+                <input type="text" id="nombreReserva" required>
+
+                <label>Servicio:</label>
+                <select id="servicioReserva" required>
+                    <option value="">Selecciona un servicio</option>
+                    <option value="Corte">Corte</option>
+                    <option value="Coloración">Coloración</option>
+                    <option value="Tratamiento">Tratamiento</option>
+                    <option value="Barbería">Barbería</option>
+                </select>
+
+                <label>Fecha y hora:</label>
+                <input type="datetime-local" id="fechaReserva" required>
+
+                <button type="submit" class="cta">Confirmar reserva</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Tu script -->
+    <script src="main.js"></script>
+</body>
+
+</html>
+
+
+</body>
+
+</html>

@@ -1,0 +1,613 @@
+:root {
+    --bg: #0f0f10;
+    --text: #eaeaea;
+    --muted: #b7b7b7;
+    --brand: #7c3aed;
+    --brand-2: #d946ef;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* GENERAL */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.55;
+    overflow-x: hidden;
+}
+
+/* CABECERA / HERO */
+header.hero {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    box-shadow: var(--shadow);
+    background: linear-gradient(to top,
+            rgba(15, 15, 16, 0.85) 0%,
+            rgba(15, 15, 16, 0.4) 45%,
+            rgba(15, 15, 16, 0.05) 100%),
+        url("Gemini_Generated_Image_xpc59xxpc59xxpc5.png") center/cover no-repeat;
+}
+
+header.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+header.hero h1 {
+    position: relative;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin: 0;
+    z-index: 2;
+    text-shadow: 0 0 12px rgba(255, 120, 220, 0.8);
+}
+
+header.hero p {
+    position: relative;
+    max-width: 600px;
+    color: #eee;
+    margin: 10px auto 25px;
+    z-index: 2;
+}
+
+header.hero .logo {
+    position: relative;    
+    top: -10px;
+}
+
+
+/* BOTÓN CTA */
+.cta {
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-weight: 600;
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    color: white;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 2;
+}
+
+/* TOPBAR */
+.topbar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 3;
+}
+
+.logo {
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 14px;
+    border-radius: 10px;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    /* sin fondo */
+    border: none;
+    /* sin bordes */
+    padding: 0;
+    box-shadow: none;
+}
+
+.logo img {
+    height: clamp(70px, 10vw, 110px);
+    /* adaptable y más grande */
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 12px rgba(217, 70, 239, 0.5));
+}
+
+
+
+/* HAMBURGUESA */
+.hamburger {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    width: 26px;
+    height: 22px;
+    position: relative;
+    z-index: 5;
+}
+
+.hamburger span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.hamburger span:nth-child(1) {
+    top: 4px;
+}
+
+.hamburger span:nth-child(2) {
+    top: 10px;
+}
+
+.hamburger span:nth-child(3) {
+    top: 16px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 10px;
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 10px;
+}
+
+/* ===== MENÚ OVERLAY ===== */
+.overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none;
+    z-index: 40;
+}
+
+.overlay.active {
+    pointer-events: auto;
+}
+
+.overlay-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.overlay.active .overlay-bg {
+    opacity: 1;
+}
+
+.overlay-panel {
+    position: relative;
+    width: min(80vw, 320px);
+    height: 100%;
+    background: rgba(18, 18, 20, 0.97);
+    border-left: 2px solid rgba(217, 70, 239, 0.4);
+    box-shadow: -10px 0 25px rgba(0, 0, 0, 0.45);
+    transform: translateX(100%);
+    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    padding: 60px 24px 24px;
+}
+
+.overlay.active .overlay-panel {
+    transform: translateX(0);
+}
+
+/* ===== NAV LISTA ===== */
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    /* Alinea los enlaces a la izquierda */
+}
+
+.nav-list a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.05rem;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.nav-list a:hover {
+    border-color: rgba(217, 70, 239, 0.5);
+    background: rgba(217, 70, 239, 0.08);
+    transform: translateX(4px);
+}
+
+/* ===== BOTÓN HAMBURGUESA ANIMADO ===== */
+.hamburger {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    width: 30px;
+    height: 22px;
+    position: relative;
+    z-index: 50;
+    transition: transform 0.5s ease;
+}
+
+.hamburger span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: white;
+    transition: all 0.4s ease;
+    border-radius: 2px;
+}
+
+.hamburger span:nth-child(1) {
+    top: 3px;
+}
+
+.hamburger span:nth-child(2) {
+    top: 10px;
+}
+
+.hamburger span:nth-child(3) {
+    top: 17px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg);
+    top: 10px;
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg);
+    top: 10px;
+}
+
+/* SECCIONES */
+section {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.card h3 {
+    margin: 6px 0 8px;
+    color: white;
+}
+
+.card p {
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+.price {
+    color: #d1ffe0;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+h2 {
+    text-align: center;
+    font-family: "Playfair Display", serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: white;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+li {
+    margin: 8px 0;
+    color: var(--muted);
+}
+
+/* Tarjeta de contacto */
+
+.contact-title {
+    font-family: "Playfair Display", serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: grid;
+    gap: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.contact-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    transform: translateY(-3px);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-item svg {
+    color: var(--brand-2);
+    flex-shrink: 0;
+}
+
+.contact-item a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    word-break: break-word;
+}
+
+.contact-item a:hover {
+    color: var(--brand-2);
+}
+
+/* FOOTER */
+footer {
+    margin-top: 64px;
+    padding: 38px 20px;
+    border-top-left-radius: 36px;
+    border-top-right-radius: 36px;
+    background: linear-gradient(180deg, #111113, #0b0b0c);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-desc {
+    color: var(--muted);
+}
+
+.footer-grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-title {
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    margin-bottom: 10px;
+}
+
+.legal-list,
+.social-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.legal-list a {
+    color: var(--muted);
+    transition: color 0.3s ease;
+}
+
+.legal-list a:hover {
+    color: white;
+}
+
+.socials {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.socials a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: all 0.3s ease;
+}
+
+.socials a:hover {
+    background: rgba(217, 70, 239, 0.15);
+    border-color: rgba(217, 70, 239, 0.4);
+}
+
+.copy {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding-top: 18px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+}
+
+/* BOTÓN WHATSAPP */
+.wa {
+    position: fixed;
+    right: 20px;
+    bottom: 22px;
+    z-index: 50;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #25d366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+}
+
+.wa svg {
+    fill: white;
+    width: 26px;
+    height: 26px;
+}
+
+/*LEGAL*/
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 60;
+}
+
+.modal.active {
+    display: grid;
+    place-items: center;
+}
+
+.modal .bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
+
+.modal .box {
+    position: relative;
+    z-index: 2;
+    width: min(92vw, 860px);
+    max-height: 85vh;
+    overflow: auto;
+    padding: 22px;
+    border-radius: 18px;
+    background: #121214;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.modal .box h3 {
+    margin-top: 0;
+}
+
+/* Animación elegante para los modales */
+.modal {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Efecto de aparición del cuadro del modal */
+.modal .box {
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.35s ease;
+    border: 1px solid rgba(217, 70, 239, 0.2);
+    box-shadow: 0 0 25px rgba(124, 58, 237, 0.25);
+}
+
+.modal.active .box {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Fondo (bg) también con fade-in/out */
+.modal .bg {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.modal.active .bg {
+    opacity: 1;
+}
+
+#formReserva {
+    display: grid;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+#formReserva label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+#formReserva input,
+#formReserva select {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 0.95rem;
+}
+
+#formReserva button {
+    margin-top: 10px;
+}
