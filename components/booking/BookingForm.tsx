@@ -121,6 +121,7 @@ export default function BookingForm({ preselectedService }: { preselectedService
     setStatus('submitting')
     try {
       const supabase = createClient()
+      if (!supabase) throw new Error('Booking service unavailable')
 
       const { error } = await supabase.from('bookings').insert({
         customer_name: data.customer_name,

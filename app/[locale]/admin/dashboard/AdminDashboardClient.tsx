@@ -147,6 +147,7 @@ export default function AdminDashboardClient({ bookings: initial, locale, userEm
   // Supabase realtime subscription
   useEffect(() => {
     const supabase = createClient()
+    if (!supabase) return
     const channel = supabase
       .channel('bookings-realtime')
       .on(
@@ -181,7 +182,7 @@ export default function AdminDashboardClient({ bookings: initial, locale, userEm
 
   async function handleLogout() {
     const supabase = createClient()
-    await supabase.auth.signOut()
+    if (supabase) await supabase.auth.signOut()
     router.push(`/${locale}/admin/login`)
   }
 
@@ -195,6 +196,7 @@ export default function AdminDashboardClient({ bookings: initial, locale, userEm
     setPendingConfirm(null)
 
     const supabase = createClient()
+    if (!supabase) return
     const { error } = await supabase
       .from('bookings')
       .update({ status, updated_at: new Date().toISOString() })
@@ -227,6 +229,7 @@ export default function AdminDashboardClient({ bookings: initial, locale, userEm
     if (!selectedBooking) return
     setSavingNote(true)
     const supabase = createClient()
+    if (!supabase) { setSavingNote(false); return }
     const { error } = await supabase
       .from('bookings')
       .update({ admin_notes: adminNoteText || null })

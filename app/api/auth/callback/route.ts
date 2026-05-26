@@ -21,26 +21,28 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/es/admin/login', request.url))
   }
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!supabaseUrl || !supabaseKey) {
+    return NextResponse.redirect(new URL('/es/admin/login', request.url))
+  }
+
   const cookieStore = await cookies()
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => cookieStore.getAll(),
-        setAll(cookiesToSet: CookieToSet[]) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              cookieStore.set(name, value, options as any)
-            )
-          } catch {
-            // Handled by middleware
-          }
-        },
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
+    cookies: {
+      getAll: () => cookieStore.getAll(),
+      setAll(cookiesToSet: CookieToSet[]) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            cookieStore.set(name, value, options as any)
+          )
+        } catch {
+          // Handled by middleware
+        }
       },
-    }
-  )
+    },
+  })
 
   const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
 

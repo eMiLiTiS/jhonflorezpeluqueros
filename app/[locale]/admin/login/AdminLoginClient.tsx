@@ -27,6 +27,11 @@ export default function AdminLoginClient() {
     setError('')
 
     const supabase = createClient()
+    if (!supabase) {
+      setError(t('invalid_credentials'))
+      setLoading(false)
+      return
+    }
     const { error: authError } = await supabase.auth.signInWithPassword({
       email,
       password,
