@@ -12,7 +12,7 @@ interface ServiceItem {
   price: string | null
   category: string
   duration: number | null
-  icon: React.ElementType
+  icon: React.ComponentType<{ className?: string }>
 }
 
 const SERVICES: ServiceItem[] = [

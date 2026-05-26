@@ -1,117 +1,183 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useTranslations, useLocale } from 'next-intl'
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Home, ChevronDown } from 'lucide-react'
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
+import { ArrowRight, Home, ChevronDown, Star } from 'lucide-react'
 
 const ParticleField = dynamic(() => import('@/components/3d/ParticleField'), {
   ssr: false,
 })
 
+function MagneticButton({
+  children,
+  className,
+  href,
+}: {
+  children: React.ReactNode
+  className?: string
+  href: string
+}) {
+  const ref = useRef<HTMLAnchorElement>(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+  const springX = useSpring(x, { stiffness: 350, damping: 25 })
+  const springY = useSpring(y, { stiffness: 350, damping: 25 })
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = ref.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const cx = rect.left + rect.width / 2
+    const cy = rect.top + rect.height / 2
+    x.set((e.clientX - cx) * 0.25)
+    y.set((e.clientY - cy) * 0.25)
+  }, [x, y])
+
+  const handleMouseLeave = useCallback(() => {
+    x.set(0)
+    y.set(0)
+  }, [x, y])
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      style={{ x: springX, y: springY }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+    >
+      {children}
+    </motion.a>
+  )
+}
+
+const STATS = [
+  { value: '10+', label: { es: 'Años de exp.', en: 'Years exp.' } },
+  { value: '500+', label: { es: 'Clientes felices', en: 'Happy clients' } },
+  { value: '100%', label: { es: 'A domicilio', en: 'Home service' } },
+]
+
 export default function Hero() {
   const t = useTranslations('hero')
   const locale = useLocale()
   const ref = useRef<HTMLDivElement>(null)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '28%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.55], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.04])
 
   return (
     <section
       ref={ref}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      aria-label={locale === 'es' ? 'Sección principal' : 'Hero section'}
     >
       {/* Background image with parallax */}
-      <motion.div className="absolute inset-0" style={{ y }}>
+      <motion.div className="absolute inset-0" style={{ y, scale }}>
         <Image
           src="/Gemini_Generated_Image_xpc59xxpc59xxpc5.png"
-          alt="Jhon Florez Peluqueros"
+          alt="Jhon Florez Peluqueros — servicio de peluquería a domicilio en Valencia"
           fill
           priority
-          className="object-cover object-center"
-          quality={90}
+          fetchPriority="high"
+          className={`object-cover object-center transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          quality={92}
+          onLoad={() => setImageLoaded(true)}
+          sizes="100vw"
         />
       </motion.div>
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-obsidian-800 via-obsidian-800/60 to-obsidian-800/20" />
-      <div className="absolute inset-0 bg-gradient-to-r from-obsidian-800/50 via-transparent to-obsidian-800/30" />
+      {/* Layered gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-obsidian-800 via-obsidian-800/55 to-obsidian-800/15" />
+      <div className="absolute inset-0 bg-gradient-to-r from-obsidian-800/40 via-transparent to-obsidian-800/25" />
+      <div className="absolute inset-0 bg-radial-gradient" style={{
+        background: 'radial-gradient(ellipse at 60% 40%, rgba(201,169,110,0.04) 0%, transparent 70%)'
+      }} />
 
-      {/* Particles */}
+      {/* 3D Particle field */}
       <ParticleField />
 
       {/* Content */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6"
+        className="relative z-10 text-center max-w-5xl mx-auto px-4 sm:px-6 pt-20"
       >
-        {/* Badge */}
+        {/* Home service badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20 text-gold text-sm font-medium mb-8"
+          initial={{ opacity: 0, y: 24, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/25 text-gold text-sm font-medium mb-8 backdrop-blur-sm"
         >
-          <Home className="w-3.5 h-3.5" />
+          <Home className="w-3.5 h-3.5" aria-hidden="true" />
           <span>{t('home_service_badge')}</span>
         </motion.div>
 
         {/* Logo */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.75 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
+          transition={{ duration: 0.8, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           className="flex justify-center mb-8"
         >
-          <Image
-            src="/logo-jf3.png"
-            alt="JF"
-            width={120}
-            height={120}
-            className="object-contain drop-shadow-[0_0_30px_rgba(201,169,110,0.5)] animate-float"
-            priority
-          />
+          <div className="relative">
+            <div className="absolute inset-0 rounded-full bg-gold/20 blur-2xl scale-150 animate-pulse-gold" />
+            <Image
+              src="/logo-jf3.png"
+              alt="Jhon Florez Peluqueros"
+              width={110}
+              height={110}
+              className="object-contain drop-shadow-[0_0_40px_rgba(201,169,110,0.55)] animate-float relative z-10"
+              priority
+            />
+          </div>
         </motion.div>
 
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.9, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
         >
           <h1 className="font-display font-light leading-tight mb-2">
-            <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white/95">
+            <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white/95 drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">
               {t('tagline')}
             </span>
-            <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl gold-text font-normal italic">
+            <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl gold-text font-normal italic drop-shadow-[0_2px_20px_rgba(201,169,110,0.3)]">
               {t('tagline2')}
             </span>
           </h1>
         </motion.div>
 
-        {/* Divider */}
+        {/* Decorative divider */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="w-24 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto my-8"
-        />
+          transition={{ duration: 1, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center justify-center gap-3 my-8"
+        >
+          <div className="h-px w-20 bg-gradient-to-r from-transparent to-gold/50" />
+          <Star className="w-3 h-3 text-gold/70 fill-current" aria-hidden="true" />
+          <div className="h-px w-20 bg-gradient-to-l from-transparent to-gold/50" />
+        </motion.div>
 
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          className="text-white/70 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12"
+          transition={{ duration: 0.8, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="text-white/65 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12"
         >
           {t('subtitle')}
         </motion.p>
@@ -120,22 +186,39 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.75 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
         >
           <Link
             href={`/${locale}/reservas`}
-            className="btn-gold flex items-center gap-2 px-8 py-4 rounded-full text-base font-semibold group shadow-gold"
+            className="btn-gold flex items-center gap-2.5 px-9 py-4 rounded-full text-base font-semibold group shadow-gold hover:shadow-gold-lg transition-shadow duration-300 relative overflow-hidden"
           >
-            <span>{t('cta_book')}</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+            <span className="relative z-10">{t('cta_book')}</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200 relative z-10" aria-hidden="true" />
           </Link>
           <Link
             href={`/${locale}/servicios`}
-            className="btn-outline-gold flex items-center gap-2 px-8 py-4 rounded-full text-base font-medium"
+            className="btn-outline-gold flex items-center gap-2.5 px-9 py-4 rounded-full text-base font-medium backdrop-blur-sm"
           >
             <span>{t('cta_services')}</span>
           </Link>
+        </motion.div>
+
+        {/* Social proof stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center justify-center gap-8 sm:gap-12"
+        >
+          {STATS.map(({ value, label }, i) => (
+            <div key={i} className="text-center">
+              <p className="font-display text-2xl sm:text-3xl font-semibold text-gold">{value}</p>
+              <p className="text-white/40 text-xs mt-0.5 uppercase tracking-wide">
+                {label[locale as 'es' | 'en'] ?? label.es}
+              </p>
+            </div>
+          ))}
         </motion.div>
       </motion.div>
 
@@ -143,17 +226,18 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 1.6, duration: 0.8 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        aria-hidden="true"
       >
-        <span className="text-white/30 text-xs uppercase tracking-widest">
+        <span className="text-white/25 text-xs uppercase tracking-[0.2em]">
           {locale === 'es' ? 'Desplaza' : 'Scroll'}
         </span>
         <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+          animate={{ y: [0, 7, 0] }}
+          transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
         >
-          <ChevronDown className="w-5 h-5 text-gold/50" />
+          <ChevronDown className="w-5 h-5 text-gold/40" />
         </motion.div>
       </motion.div>
     </section>

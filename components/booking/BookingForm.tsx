@@ -35,18 +35,18 @@ const SERVICES = [
 
 const TIME_SLOTS = generateTimeSlots(9, 21, 30)
 
-function buildSchema(t: ReturnType<typeof useTranslations<'booking'>>) {
+function buildSchema(_t: ReturnType<typeof useTranslations<'booking'>>) {
   return z.object({
-    service_key: z.string().min(1),
+    service_key: z.string().min(1, 'Selecciona un servicio'),
     service_name: z.string().min(1),
-    preferred_date: z.string().min(1),
-    preferred_time: z.string().min(1),
-    customer_name: z.string().min(2),
-    customer_email: z.string().email(),
-    customer_phone: z.string().min(9),
-    notes: z.string().optional(),
+    preferred_date: z.string().min(1, 'Selecciona una fecha'),
+    preferred_time: z.string().min(1, 'Selecciona una hora'),
+    customer_name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
+    customer_email: z.string().email('Email no válido'),
+    customer_phone: z.string().min(9, 'El teléfono debe tener al menos 9 dígitos'),
+    notes: z.string().max(500).optional(),
     gdpr_consent: z.literal(true, {
-      errorMap: () => ({ message: 'Required' }),
+      errorMap: () => ({ message: 'Debes aceptar la política de privacidad' }),
     }),
   })
 }
@@ -74,17 +74,23 @@ export default function BookingForm({ preselectedService }: { preselectedService
 
   const dateFnsLocale = locale === 'es' ? es : enGB
 
+  const schema = buildSchema(t)
+
   const {
     register,
     control,
     handleSubmit,
     setValue,
     watch,
+    trigger,
     formState: { errors },
   } = useForm<FormData>({
+    resolver: zodResolver(schema),
     defaultValues: {
       service_key: preselectedService || '',
-      service_name: '',
+      service_name: preselectedService
+        ? (SERVICES.find(s => s.key === preselectedService)?.[locale === 'es' ? 'nameEs' : 'nameEn'] ?? '')
+        : '',
       preferred_date: '',
       preferred_time: '',
       customer_name: '',
@@ -387,10 +393,14 @@ export default function BookingForm({ preselectedService }: { preselectedService
                   {t('name_label')}
                 </label>
                 <input
-                  {...register('customer_name', { required: true, minLength: 2 })}
+                  {...register('customer_name')}
                   placeholder={t('name_placeholder')}
+                  autoComplete="name"
                   className={cn('form-input', errors.customer_name && 'error')}
                 />
+                {errors.customer_name && (
+                  <p className="text-red-400 text-xs mt-1.5">{errors.customer_name.message}</p>
+                )}
               </div>
 
               {/* Email */}
@@ -400,11 +410,15 @@ export default function BookingForm({ preselectedService }: { preselectedService
                   {t('email_label')}
                 </label>
                 <input
-                  {...register('customer_email', { required: true })}
+                  {...register('customer_email')}
                   type="email"
                   placeholder={t('email_placeholder')}
+                  autoComplete="email"
                   className={cn('form-input', errors.customer_email && 'error')}
                 />
+                {errors.customer_email && (
+                  <p className="text-red-400 text-xs mt-1.5">{errors.customer_email.message}</p>
+                )}
               </div>
 
               {/* Phone */}
@@ -414,11 +428,15 @@ export default function BookingForm({ preselectedService }: { preselectedService
                   {t('phone_label')}
                 </label>
                 <input
-                  {...register('customer_phone', { required: true, minLength: 9 })}
+                  {...register('customer_phone')}
                   type="tel"
                   placeholder={t('phone_placeholder')}
+                  autoComplete="tel"
                   className={cn('form-input', errors.customer_phone && 'error')}
                 />
+                {errors.customer_phone && (
+                  <p className="text-red-400 text-xs mt-1.5">{errors.customer_phone.message}</p>
+                )}
               </div>
 
               {/* Notes */}
@@ -447,7 +465,10 @@ export default function BookingForm({ preselectedService }: { preselectedService
               </button>
               <button
                 type="button"
-                onClick={() => setStep(4)}
+                onClick={async () => {
+                  const valid = await trigger(['customer_name', 'customer_email', 'customer_phone'])
+                  if (valid) setStep(4)
+                }}
                 className="btn-gold flex items-center gap-2 px-8 py-3.5 rounded-xl font-medium"
               >
                 <span>{t('next')}</span>
