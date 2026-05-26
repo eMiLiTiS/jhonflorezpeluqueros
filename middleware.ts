@@ -25,36 +25,41 @@ export async function middleware(request: NextRequest) {
     response.cookies.set(cookie.name, cookie.value, cookie)
   )
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll: () => request.cookies.getAll(),
-        setAll(cookiesToSet: CookieToSet[]) {
-          // Propagate updated cookies into the mutable request
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          response = NextResponse.next({ request })
-          // Re-apply i18n headers after response was re-created
-          i18nResponse.headers.forEach((v, k) => {
-            if (k.toLowerCase() !== 'set-cookie') response.headers.set(k, v)
-          })
-          i18nResponse.cookies.getAll().forEach(c =>
-            response.cookies.set(c.name, c.value, c)
-          )
-          cookiesToSet.forEach(({ name, value, options }) =>
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            response.cookies.set(name, value, options as any)
-          )
-        },
-      },
+  const pathname = request.nextUrl.pathname
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  // Skip Supabase entirely when env vars are absent (pre-configuration deploy)
+  if (!supabaseUrl || !supabaseKey) {
+    if (/\/admin\/dashboard/.test(pathname)) {
+      const locale = pathname.match(/^\/(es|en)/)?.[1] ?? 'es'
+      return NextResponse.redirect(new URL(`/${locale}/admin/login`, request.url))
     }
-  )
+    return response
+  }
+
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
+    cookies: {
+      getAll: () => request.cookies.getAll(),
+      setAll(cookiesToSet: CookieToSet[]) {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+        response = NextResponse.next({ request })
+        i18nResponse.headers.forEach((v, k) => {
+          if (k.toLowerCase() !== 'set-cookie') response.headers.set(k, v)
+        })
+        i18nResponse.cookies.getAll().forEach(c =>
+          response.cookies.set(c.name, c.value, c)
+        )
+        cookiesToSet.forEach(({ name, value, options }) =>
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          response.cookies.set(name, value, options as any)
+        )
+      },
+    },
+  })
 
   // IMPORTANT: Do not add any logic between createServerClient and getUser()
   const { data: { user } } = await supabase.auth.getUser()
-
-  const pathname = request.nextUrl.pathname
 
   // Protect admin dashboard — redirect to login if not authenticated
   if (/\/admin\/dashboard/.test(pathname) && !user) {
