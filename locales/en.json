@@ -1,0 +1,261 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "booking": "Book",
+    "about": "About",
+    "contact": "Contact",
+    "book_now": "Book now",
+    "admin": "Admin"
+  },
+  "hero": {
+    "tagline": "Your image,",
+    "tagline2": "our passion.",
+    "subtitle": "Professional home hairdressing service across Valencia province. We bring the salon to your door.",
+    "cta_book": "Book appointment",
+    "cta_services": "View services",
+    "home_service_badge": "Home service"
+  },
+  "home": {
+    "featured_services_title": "Featured services",
+    "featured_services_subtitle": "A premium experience in the comfort of your home",
+    "about_title": "Art and precision in every detail",
+    "about_subtitle": "With years of experience and passion for styling, Jhon Florez brings the very best service directly to your door.",
+    "about_badge": "Why choose us?",
+    "home_service_title": "The salon comes to you",
+    "home_service_subtitle": "We serve the entire Valencia province. No commute needed — you choose the place and time.",
+    "how_title": "How it works",
+    "how_subtitle": "Booking is simple and fast",
+    "step1_title": "Choose your service",
+    "step1_desc": "Pick from our complete menu of men's, women's and makeup services.",
+    "step2_title": "Select your slot",
+    "step2_desc": "Choose the day and time that suits you best. Available Monday to Sunday.",
+    "step3_title": "We confirm",
+    "step3_desc": "You'll receive a confirmation email within 24 hours. That easy!",
+    "cta_title": "Ready for your new look?",
+    "cta_subtitle": "Book now and enjoy a professional service in your own space.",
+    "cta_button": "Book my appointment",
+    "cta_whatsapp": "Contact via WhatsApp"
+  },
+  "services": {
+    "title": "Our services",
+    "subtitle": "Premium treatments tailored to every need",
+    "from": "from",
+    "consult": "On request",
+    "category_men": "Men",
+    "category_women": "Women",
+    "category_bridal": "Bridal",
+    "category_makeup": "Makeup",
+    "category_treatment": "Treatments",
+    "all": "All",
+    "book_service": "Book this service",
+    "duration": "Approx. duration",
+    "minutes": "min",
+    "services_list": {
+      "corte_hombre": {
+        "name": "Men's Haircut",
+        "desc": "Classic or modern cut with personalised style advice."
+      },
+      "corte_barba": {
+        "name": "Haircut + Beard",
+        "desc": "Full haircut with precision beard trim and styling."
+      },
+      "corte_mujer": {
+        "name": "Women's Haircut",
+        "desc": "Styled cut including professional wash and blow-dry."
+      },
+      "color": {
+        "name": "Colour",
+        "desc": "Full colour using high-quality products with hair protection."
+      },
+      "mechas": {
+        "name": "Highlights",
+        "desc": "Highlights, balayage or ombre techniques adapted to your natural tone."
+      },
+      "lavado": {
+        "name": "Wash",
+        "desc": "Hair wash with relaxing scalp massage and nourishing conditioner."
+      },
+      "peinado": {
+        "name": "Styling",
+        "desc": "Personalised styling for any special occasion."
+      },
+      "keratina": {
+        "name": "Keratin",
+        "desc": "Keratin treatment to smooth, nourish and add shine to your hair."
+      },
+      "maquillaje_novia": {
+        "name": "Bridal Makeup",
+        "desc": "Long-lasting bridal makeup for your most special day."
+      },
+      "maquillaje_novia_peinado": {
+        "name": "Bridal Makeup + Styling",
+        "desc": "Full bridal package: makeup and hair styling for the perfect day."
+      },
+      "maquillaje_fantasia": {
+        "name": "Fantasy Makeup",
+        "desc": "Artistic and fantasy makeup for events, theatre and photo shoots."
+      }
+    }
+  },
+  "booking": {
+    "title": "Book your appointment",
+    "subtitle": "Fill in the form and we'll confirm availability",
+    "step1_title": "Choose your service",
+    "step2_title": "Date & time",
+    "step3_title": "Your details",
+    "step4_title": "Confirm",
+    "select_service": "Select a service",
+    "select_date": "Select a date",
+    "select_time": "Select a time",
+    "no_slots": "No available slots for this date",
+    "name_label": "Full name",
+    "name_placeholder": "Your name",
+    "email_label": "Email",
+    "email_placeholder": "you@email.com",
+    "phone_label": "Phone",
+    "phone_placeholder": "+34 600 000 000",
+    "notes_label": "Comments (optional)",
+    "notes_placeholder": "Any preferences or additional information?",
+    "gdpr_text": "I accept the privacy policy and the processing of my data for appointment management.",
+    "privacy_link": "View privacy policy",
+    "next": "Continue",
+    "back": "Back",
+    "submit": "Send request",
+    "submitting": "Sending...",
+    "success_title": "Request received!",
+    "success_message": "We've received your appointment request. We'll confirm by email within 24 hours.",
+    "success_note": "If you need to reach us directly, message us on WhatsApp.",
+    "error_title": "Submission error",
+    "error_message": "Something went wrong. Please try again or contact us via WhatsApp.",
+    "new_booking": "New booking",
+    "pending_note": "Appointments are pending confirmation. No upfront payment required.",
+    "availability_note": "Mon–Sun · 9:00 — 21:00 · Minimum 24h advance notice"
+  },
+  "about": {
+    "title": "About us",
+    "subtitle": "Passion for styling, commitment to your image",
+    "story_title": "The Jhon Florez story",
+    "story_p1": "With over a decade of experience in hairdressing and makeup, Jhon Florez has built a reputation based on excellence, creativity and personalised attention.",
+    "story_p2": "Born with an innate passion for the art of styling, Jhon has assembled a team of professionals who share his vision: that every client deserves to feel extraordinary.",
+    "story_p3": "Our home service was born from the belief that comfort and quality need not be opposites. We bring the premium salon experience directly to your space.",
+    "values_title": "Our values",
+    "value1_title": "Excellence",
+    "value1_desc": "Top-quality products and up-to-date techniques in every service.",
+    "value2_title": "Personalisation",
+    "value2_desc": "Every cut, colour or style is unique and adapted to your personal aesthetic.",
+    "value3_title": "Trust",
+    "value3_desc": "Professionalism and discretion on every home visit.",
+    "value4_title": "Convenience",
+    "value4_desc": "No travel. The salon comes to you, on your schedule.",
+    "coverage_title": "Service area",
+    "coverage_desc": "We serve the entire Valencia province. Contact us if your municipality isn't listed.",
+    "team_title": "The team"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We're here to help",
+    "phone_label": "Phone",
+    "email_label": "Email",
+    "location_label": "Service area",
+    "location_value": "Valencia province, Spain",
+    "hours_label": "Hours",
+    "hours_value": "Monday to Sunday · 9:00 — 21:00",
+    "whatsapp_cta": "Message on WhatsApp",
+    "call_cta": "Call now",
+    "form_title": "Send us a message",
+    "form_name": "Name",
+    "form_email": "Email",
+    "form_message": "Message",
+    "form_submit": "Send message",
+    "form_submitting": "Sending...",
+    "form_success": "Message sent. We'll get back to you soon.",
+    "form_error": "Error sending. Please contact us directly via WhatsApp.",
+    "home_service_title": "Home service",
+    "home_service_desc": "We travel to your location anywhere in Valencia province. Book at least 24 hours in advance."
+  },
+  "admin": {
+    "login_title": "Admin Access",
+    "login_subtitle": "Administration panel — Jhon Florez Peluqueros",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "Sign in",
+    "signing_in": "Signing in...",
+    "invalid_credentials": "Invalid email or password",
+    "dashboard_title": "Bookings panel",
+    "stats_total": "Total bookings",
+    "stats_pending": "Pending",
+    "stats_confirmed": "Confirmed",
+    "stats_cancelled": "Cancelled",
+    "table_customer": "Customer",
+    "table_service": "Service",
+    "table_date": "Date",
+    "table_time": "Time",
+    "table_status": "Status",
+    "table_actions": "Actions",
+    "status_pending": "Pending",
+    "status_confirmed": "Confirmed",
+    "status_cancelled": "Cancelled",
+    "action_confirm": "Confirm",
+    "action_cancel": "Cancel",
+    "action_view": "View details",
+    "filter_all": "All",
+    "filter_pending": "Pending",
+    "filter_confirmed": "Confirmed",
+    "filter_cancelled": "Cancelled",
+    "no_bookings": "No bookings found",
+    "logout": "Sign out",
+    "detail_title": "Booking details",
+    "detail_phone": "Phone",
+    "detail_email": "Email",
+    "detail_notes": "Customer notes",
+    "detail_admin_notes": "Internal notes",
+    "detail_created": "Request date",
+    "confirm_confirm": "Confirm this booking and notify the customer?",
+    "confirm_cancel": "Cancel this booking and notify the customer?",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "footer": {
+    "tagline": "Contemporary style, close experience, impeccable results.",
+    "legal_title": "Legal",
+    "legal_notice": "Legal notice",
+    "privacy": "Privacy policy",
+    "cookies": "Cookie policy",
+    "booking_conditions": "Booking terms",
+    "bookings_title": "Bookings",
+    "bookings_desc": "Monday to Sunday · 9:00 — 21:00",
+    "contact_title": "Contact",
+    "location": "Valencia province, Spain",
+    "copyright": "All rights reserved.",
+    "made_with": "Made with ♥ in Valencia"
+  },
+  "cookie": {
+    "message": "We use essential technical cookies and optional analytics cookies to improve your experience.",
+    "accept": "Accept",
+    "reject": "Reject",
+    "learn_more": "Learn more"
+  },
+  "legal": {
+    "privacy_title": "Privacy policy",
+    "privacy_body": "Controller: Jhon Florez Peluqueros. Purpose: appointment management and enquiry handling. Lawful basis: data subject consent. Rights: access, rectification and erasure by emailing jhonarnulfa1402@gmail.com. Data is not shared with third parties and is retained for the duration of the commercial relationship.",
+    "legal_title": "Legal notice",
+    "legal_body": "This website is owned by Jhon Florez Peluqueros. Professional address: Valencia, Spain. Contact: jhonarnulfa1402@gmail.com. Accessing and using this site implies acceptance of these terms.",
+    "cookies_title": "Cookie policy",
+    "cookies_body": "We use technically necessary cookies for site operation and optional analytics cookies to improve user experience. You may accept or reject analytics cookies.",
+    "booking_cond_title": "Booking terms",
+    "booking_cond_body": "All appointment requests are subject to confirmation by Jhon Florez Peluqueros. Booking does not imply any upfront charge. Cancellations require at least 3 hours' notice. The service is provided at the client's address within Valencia province."
+  },
+  "meta": {
+    "home_title": "Jhon Florez Peluqueros — Home hairdresser in Valencia",
+    "home_desc": "Professional home hairdressing service across Valencia province. Haircuts, colour, highlights, keratin, makeup and more. Book online.",
+    "services_title": "Services — Jhon Florez Peluqueros",
+    "services_desc": "Discover all our hairdressing and makeup services: men's and women's cuts, colour, highlights, keratin, bridal makeup and more.",
+    "booking_title": "Book an appointment — Jhon Florez Peluqueros",
+    "booking_desc": "Book your home hairdressing appointment in Valencia. Available Monday to Sunday 9:00 to 21:00.",
+    "about_title": "About us — Jhon Florez Peluqueros",
+    "about_desc": "Meet Jhon Florez Peluqueros, your professional home hairdresser in Valencia with over 10 years of experience.",
+    "contact_title": "Contact — Jhon Florez Peluqueros",
+    "contact_desc": "Contact Jhon Florez Peluqueros. Phone, WhatsApp and email. Home service across Valencia province."
+  }
+}
