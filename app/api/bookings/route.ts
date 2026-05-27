@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient, createClient } from '@/lib/supabase/server'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -79,8 +79,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // ── 1. Supabase insert — must succeed before email is attempted ──
-    const supabase = await createClient()
+    // ── 1. Supabase insert — service role bypasses RLS; public users never write directly ──
+    const supabase = createAdminClient()
     const { data, error: dbError } = await supabase
       .from('bookings')
       .insert({
