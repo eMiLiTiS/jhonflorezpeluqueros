@@ -70,14 +70,16 @@ export default function AboutPageClient() {
           transition={{ duration: 0.7 }}
           className="relative"
         >
-          <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden">
+          <div className="relative h-96 lg:h-[500px] rounded-2xl overflow-hidden ring-1 ring-gold/15">
             <Image
-              src="/Gemini_Generated_Image_xpc59xxpc59xxpc5.png"
+              src="/images/Gemini_Generated_Image_xpc59xxpc59xxpc5.png"
               alt={t('story_title')}
               fill
-              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-[center_38%]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-obsidian-800/60 to-transparent" />
+            {/* Gradient fades bottom only — keeps neon sign readable */}
+            <div className="absolute inset-0 bg-gradient-to-t from-obsidian-800/70 via-transparent to-transparent" />
           </div>
           {/* Floating badge */}
           <div className="absolute -bottom-4 -left-4 glass-card rounded-xl p-5 border border-gold/20">

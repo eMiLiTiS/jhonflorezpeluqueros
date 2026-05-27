@@ -78,7 +78,7 @@ const localBusinessJsonLd = (locale: string) => ({
     '@type': 'AdministrativeArea',
     name: locale === 'es' ? 'Provincia de Valencia' : 'Valencia Province',
   },
-  image: `${BASE_URL}/logo-jf3.png`,
+  image: `${BASE_URL}/images/logo-jf3.png`,
   sameAs: [],
 })
 

@@ -64,10 +64,11 @@ export default function AdminLoginClient() {
           {/* Logo */}
           <div className="flex flex-col items-center mb-8">
             <Image
-              src="/logo-jf3.png"
+              src="/images/logo-jf3.png"
               alt="JF"
               width={70}
               height={70}
+              sizes="70px"
               className="object-contain mb-4"
             />
             <h1 className="font-display text-3xl font-light text-white">{t('login_title')}</h1>

@@ -58,9 +58,10 @@ export default function Navbar() {
             <Link href={`/${locale}`} className="flex items-center gap-3 group">
               <div className="relative w-12 h-12 transition-transform duration-300 group-hover:scale-105">
                 <Image
-                  src="/logo-jf3.png"
+                  src="/images/logo-jf3.png"
                   alt="Jhon Florez Peluqueros"
                   fill
+                  sizes="48px"
                   className="object-contain drop-shadow-[0_0_8px_rgba(201,169,110,0.4)]"
                   priority
                 />
@@ -146,10 +147,11 @@ export default function Navbar() {
             >
               <div className="flex items-center justify-between p-6 border-b border-gold/10">
                 <Image
-                  src="/logo-jf3.png"
+                  src="/images/logo-jf3.png"
                   alt="JF"
                   width={44}
                   height={44}
+                  sizes="44px"
                   className="object-contain"
                 />
                 <button

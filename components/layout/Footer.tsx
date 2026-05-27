@@ -21,10 +21,11 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href={`/${locale}`} className="inline-flex items-center gap-3 mb-5 group">
               <Image
-                src="/logo-jf3.png"
+                src="/images/logo-jf3.png"
                 alt="Jhon Florez Peluqueros"
                 width={50}
                 height={50}
+                sizes="50px"
                 className="object-contain group-hover:scale-105 transition-transform duration-300"
               />
               <span className="font-display text-xl font-medium text-white/90">

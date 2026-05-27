@@ -86,13 +86,13 @@ export default function Hero() {
       {/* Background image with parallax */}
       <motion.div className="absolute inset-0" style={{ y, scale }}>
         <Image
-          src="/Gemini_Generated_Image_xpc59xxpc59xxpc5.png"
+          src="/images/Gemini_Generated_Image_xpc59xxpc59xxpc5.png"
           alt="Jhon Florez Peluqueros — servicio de peluquería a domicilio en Valencia"
           fill
           priority
           fetchPriority="high"
-          className={`object-cover object-center transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-          quality={92}
+          className={`object-cover object-[center_38%] transition-opacity duration-700 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          quality={90}
           onLoad={() => setImageLoaded(true)}
           sizes="100vw"
         />
@@ -131,16 +131,25 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           className="flex justify-center mb-8"
         >
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full bg-gold/20 blur-2xl scale-150 animate-pulse-gold" />
-            <Image
-              src="/logo-jf3.png"
-              alt="Jhon Florez Peluqueros"
-              width={110}
-              height={110}
-              className="object-contain drop-shadow-[0_0_40px_rgba(201,169,110,0.55)] animate-float relative z-10"
-              priority
-            />
+          {/* Outer wrapper animates — glow and logo float together */}
+          <div className="relative w-[114px] h-[114px] animate-float">
+            {/* Ambient aura — co-anchored to wrapper */}
+            <div className="absolute inset-0 rounded-full bg-gold/20 blur-3xl scale-[1.65] animate-pulse-gold pointer-events-none" />
+            {/* 2 px gradient ring shell: bright gold top → dim mid → gold bottom */}
+            <div className="relative z-10 w-full h-full rounded-full p-[2px] bg-gradient-to-b from-gold/55 via-gold/15 to-gold/50 shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
+              {/* Dark backing clips white PNG corners, ensures contrast on dark hero */}
+              <div className="w-full h-full rounded-full overflow-hidden bg-obsidian-800/65">
+                <Image
+                  src="/images/logo-jf3.png"
+                  alt="Jhon Florez Peluqueros"
+                  width={110}
+                  height={110}
+                  sizes="114px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
 

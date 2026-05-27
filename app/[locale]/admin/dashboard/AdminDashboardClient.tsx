@@ -261,7 +261,7 @@ export default function AdminDashboardClient({ bookings: initial, locale, userEm
       <header className="sticky top-0 z-20 bg-obsidian-700/95 backdrop-blur-xl border-b border-gold/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Image src="/logo-jf3.png" alt="JF" width={36} height={36} className="object-contain" />
+            <Image src="/images/logo-jf3.png" alt="JF" width={36} height={36} sizes="36px" className="object-contain" />
             <h1 className="font-display text-xl text-white hidden sm:block">{t('dashboard_title')}</h1>
           </div>
 
