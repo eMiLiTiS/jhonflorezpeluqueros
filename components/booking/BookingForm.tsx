@@ -16,7 +16,6 @@ import {
   User, Mail, Phone, Clock, Calendar, FileText
 } from 'lucide-react'
 import { cn, generateTimeSlots, isDateAvailable } from '@/lib/utils'
-import { createClient } from '@/lib/supabase/client'
 import 'react-day-picker/dist/style.css'
 
 const SERVICES = [
@@ -120,36 +119,43 @@ export default function BookingForm({ preselectedService }: { preselectedService
   async function onSubmit(data: FormData) {
     setStatus('submitting')
     try {
-      const supabase = createClient()
-      if (!supabase) throw new Error('Booking service unavailable')
-
-      const { error } = await supabase.from('bookings').insert({
-        customer_name: data.customer_name,
-        customer_email: data.customer_email,
-        customer_phone: data.customer_phone,
-        service_name: data.service_name,
-        preferred_date: data.preferred_date,
-        preferred_time: data.preferred_time,
-        notes: data.notes || null,
-        status: 'pending',
-        locale,
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer_name: data.customer_name,
+          customer_email: data.customer_email,
+          customer_phone: data.customer_phone,
+          service_name: data.service_name,
+          preferred_date: data.preferred_date,
+          preferred_time: data.preferred_time,
+          notes: data.notes || null,
+          locale,
+        }),
       })
 
-      if (error) throw error
+      if (!res.ok) {
+        const payload = await res.json().catch(() => ({})) as { error?: string }
+        if (process.env.NODE_ENV === 'development') {
+          console.error('[BookingForm] /api/bookings error', res.status, payload)
+        }
+        throw new Error(payload.error ?? `HTTP ${res.status}`)
+      }
 
-      // EmailJS notifications
+      // EmailJS notifications — non-critical, booking is already saved
       try {
         const { sendAdminNotification, sendBookingReceived } = await import('@/lib/emailjs')
-        await Promise.all([
-          sendAdminNotification(data as any),
-          sendBookingReceived(data as any),
-        ])
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await Promise.all([sendAdminNotification(data as any), sendBookingReceived(data as any)])
       } catch {
         // Email send failure is non-critical — booking is saved
       }
 
       setStatus('success')
-    } catch {
+    } catch (err) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('[BookingForm] submit failed:', err)
+      }
       setStatus('error')
     }
   }
