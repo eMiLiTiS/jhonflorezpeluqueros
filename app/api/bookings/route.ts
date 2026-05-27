@@ -3,8 +3,41 @@ import { createClient } from '@/lib/supabase/server'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
+type EmailStatus = 'sent' | 'skipped' | 'failed'
+
+function isEmailJSConfigured(): boolean {
+  return !!(
+    process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID &&
+    process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY &&
+    process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ADMIN &&
+    process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_RECEIVED
+  )
+}
+
+// Calls the EmailJS REST API directly — works in Node.js without @emailjs/browser.
+// The public key is intentionally public; no secrets are sent.
+async function sendEmailJS(
+  templateId: string,
+  templateParams: Record<string, string | null | undefined>
+): Promise<void> {
+  const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      service_id: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+      template_id: templateId,
+      user_id: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
+      template_params: templateParams,
+    }),
+  })
+  if (!res.ok) {
+    const text = await res.text().catch(() => '(no body)')
+    throw new Error(`EmailJS HTTP ${res.status}: ${text}`)
+  }
+}
+
 export async function POST(request: NextRequest) {
-  // Separate JSON parse (400) from processing errors (500)
+  // Separate JSON parse errors (400) from processing errors (500)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let body: any
   try {
@@ -46,8 +79,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // ── 1. Supabase insert — must succeed before email is attempted ──
     const supabase = await createClient()
-    const { data, error } = await supabase
+    const { data, error: dbError } = await supabase
       .from('bookings')
       .insert({
         customer_name,
@@ -63,18 +97,61 @@ export async function POST(request: NextRequest) {
       .select()
       .single()
 
-    if (error) {
-      console.error('[POST /api/bookings] Supabase insert error:', error.code, error.message)
+    if (dbError) {
+      console.error('[POST /api/bookings] Supabase insert error:', dbError.code, dbError.message)
       return NextResponse.json(
         {
-          error: isDev ? error.message : 'Failed to save booking',
-          error_code: error.code ?? 'DB_INSERT_FAILED',
+          error: isDev ? dbError.message : 'Failed to save booking',
+          error_code: dbError.code ?? 'DB_INSERT_FAILED',
         },
         { status: 500 }
       )
     }
 
-    return NextResponse.json({ booking: data }, { status: 201 })
+    // ── 2. Email notifications — optional, never blocks booking success ──
+    let emailStatus: EmailStatus = 'skipped'
+    let warning: string | null = null
+
+    if (!isEmailJSConfigured()) {
+      console.log('[POST /api/bookings] EmailJS not configured — skipping notifications')
+      warning = 'EmailJS not configured'
+    } else {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || ''
+        await Promise.all([
+          sendEmailJS(process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ADMIN!, {
+            booking_id: data.id,
+            customer_name: data.customer_name,
+            customer_email: data.customer_email,
+            customer_phone: data.customer_phone,
+            service_name: data.service_name,
+            preferred_date: data.preferred_date,
+            preferred_time: data.preferred_time,
+            notes: data.notes || '—',
+            admin_url: `${baseUrl}/admin/dashboard`,
+          }),
+          sendEmailJS(process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_RECEIVED!, {
+            to_email: data.customer_email,
+            to_name: data.customer_name,
+            service_name: data.service_name,
+            preferred_date: data.preferred_date,
+            preferred_time: data.preferred_time,
+          }),
+        ])
+        emailStatus = 'sent'
+        console.log('[POST /api/bookings] Email notifications sent for booking', data.id)
+      } catch (emailErr) {
+        emailStatus = 'failed'
+        const msg = emailErr instanceof Error ? emailErr.message : String(emailErr)
+        console.error('[POST /api/bookings] Email send failed (booking saved):', msg)
+        warning = isDev ? msg : 'Email notification failed'
+      }
+    }
+
+    return NextResponse.json(
+      { success: true, booking: data, email_status: emailStatus, warning },
+      { status: 201 }
+    )
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
     console.error('[POST /api/bookings] Unexpected error:', message)

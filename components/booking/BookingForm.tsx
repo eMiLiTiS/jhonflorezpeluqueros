@@ -142,15 +142,6 @@ export default function BookingForm({ preselectedService }: { preselectedService
         throw new Error(payload.error ?? `HTTP ${res.status}`)
       }
 
-      // EmailJS notifications — non-critical, booking is already saved
-      try {
-        const { sendAdminNotification, sendBookingReceived } = await import('@/lib/emailjs')
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        await Promise.all([sendAdminNotification(data as any), sendBookingReceived(data as any)])
-      } catch {
-        // Email send failure is non-critical — booking is saved
-      }
-
       setStatus('success')
     } catch (err) {
       if (process.env.NODE_ENV === 'development') {
